@@ -7,12 +7,14 @@ Run:
 pip install -r requirements.txt
 ```
 
-## Test `agent.py`
+## Day 1 - Test `agent.py`
 
 Run:
 ```
 python agent.py
 ```
+
+which will run `run_agent()` in the `agent.py`.
 
 I added the today's date to the `SYSTEM_PROMPT` to tell CClaude to find the most recent result.
 
@@ -109,3 +111,249 @@ So the output you saw, 2 loops and 5 searches total, means Claude decided it nee
 - A system prompt that tells Claude how to behave
 - A working tool-calling loop with Tavily search
 - A final report printed to the terminal
+
+## Day 2
+
+Run:
+```
+streamlit run app.py
+```
+
+which will call `run_agent_stream()` in `agent.py` instead of `run_agent()`.
+
+The full output:
+```
+ You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.108:8501
+
+[DEBUG] Clients initialised OK
+[STREAM] Starting stream for question: 'What are the top risks in the Australian retail sector?'
+
+[STREAM] Loop 1: sending 1 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily query: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily returned 3 results, 3709 chars
+[STREAM] Search done, result length: 3709 chars
+[STREAM] Yielding search step: 'Australia retail industry challenges economic conditions'
+  [DEBUG] Tavily query: 'Australia retail industry challenges economic conditions'
+  [DEBUG] Tavily returned 3 results, 2473 chars
+[STREAM] Search done, result length: 2473 chars
+[STREAM] Yielding search step: 'Australian consumer spending trends retail 2026'
+  [DEBUG] Tavily query: 'Australian consumer spending trends retail 2026'
+  [DEBUG] Tavily returned 3 results, 1356 chars
+[STREAM] Search done, result length: 1356 chars
+[STREAM] Yielding search step: 'Australian retail cybersecurity supply chain risks'
+  [DEBUG] Tavily query: 'Australian retail cybersecurity supply chain risks'
+  [DEBUG] Tavily returned 3 results, 3573 chars
+[STREAM] Search done, result length: 3573 chars
+[STREAM] Sending 4 tool result(s) back to Claude
+
+[STREAM] Loop 2: sending 3 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail labor shortage wage costs 2026'
+  [DEBUG] Tavily query: 'Australian retail labor shortage wage costs 2026'
+  [DEBUG] Tavily returned 3 results, 2569 chars
+[STREAM] Search done, result length: 2569 chars
+[STREAM] Yielding search step: 'Australian retail cost of living crisis inflation impact'
+  [DEBUG] Tavily query: 'Australian retail cost of living crisis inflation impact'
+  [DEBUG] Tavily returned 3 results, 2167 chars
+[STREAM] Search done, result length: 2167 chars
+[STREAM] Sending 2 tool result(s) back to Claude
+
+[STREAM] Loop 3: sending 5 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail business closures insolvency 2026'
+  [DEBUG] Tavily query: 'Australian retail business closures insolvency 2026'
+  [DEBUG] Tavily returned 3 results, 1623 chars
+[STREAM] Search done, result length: 1623 chars
+[STREAM] Yielding search step: 'Australian retail e-commerce competition Amazon market share'
+  [DEBUG] Tavily query: 'Australian retail e-commerce competition Amazon market share'
+  [DEBUG] Tavily returned 3 results, 2662 chars
+[STREAM] Search done, result length: 2662 chars
+[STREAM] Sending 2 tool result(s) back to Claude
+
+[STREAM] Loop 4: sending 7 messages to Claude
+[STREAM] stop_reason: end_turn
+[STREAM] content blocks: ['text']
+[STREAM] Yielding final report, length: 5227 chars
+[DEBUG] Clients initialised OK
+[STREAM] Starting stream for question: 'What are the top risks in the Australian retail sector?'
+
+[STREAM] Loop 1: sending 1 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily query: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily returned 3 results, 3709 chars
+[STREAM] Search done, result length: 3709 chars
+[STREAM] Yielding search step: 'Australian retail industry challenges economic conditions'
+  [DEBUG] Tavily query: 'Australian retail industry challenges economic conditions'
+  [DEBUG] Tavily returned 3 results, 707 chars
+[STREAM] Search done, result length: 707 chars
+[STREAM] Yielding search step: 'Australian consumer spending trends retail 2025 2026'
+  [DEBUG] Tavily query: 'Australian consumer spending trends retail 2025 2026'
+  [DEBUG] Tavily returned 3 results, 1675 chars
+[STREAM] Search done, result length: 1675 chars
+[STREAM] Yielding search step: 'Australian retail competition online ecommerce disruption'
+  [DEBUG] Tavily query: 'Australian retail competition online ecommerce disruption'
+  [DEBUG] Tavily returned 3 results, 1780 chars
+[STREAM] Search done, result length: 1780 chars
+[STREAM] Sending 4 tool result(s) back to Claude
+
+[STREAM] Loop 2: sending 3 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail crime theft organized retail crime 2026'
+  [DEBUG] Tavily query: 'Australian retail crime theft organized retail crime 2026'
+  [DEBUG] Tavily returned 3 results, 1573 chars
+[STREAM] Search done, result length: 1573 chars
+[STREAM] Yielding search step: 'Australian retail insolvency bankruptcy closures 2026'
+  [DEBUG] Tavily query: 'Australian retail insolvency bankruptcy closures 2026'
+  [DEBUG] Tavily returned 3 results, 1402 chars
+[STREAM] Search done, result length: 1402 chars
+[STREAM] Sending 2 tool result(s) back to Claude
+
+[STREAM] Loop 3: sending 5 messages to Claude
+[STREAM] stop_reason: end_turn
+[STREAM] content blocks: ['text']
+[STREAM] Yielding final report, length: 4018 chars
+```
+
+Take a closer look at the output.
+
+There are two runs - Run 1:
+```
+PS C:\Users\Li-Ting\Documents\Projects\sector-scout> streamlit run app.py
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.108:8501
+
+[DEBUG] Clients initialised OK
+[STREAM] Starting stream for question: 'What are the top risks in the Australian retail sector?'
+
+[STREAM] Loop 1: sending 1 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily query: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily returned 3 results, 3709 chars
+[STREAM] Search done, result length: 3709 chars
+[STREAM] Yielding search step: 'Australia retail industry challenges economic conditions'
+  [DEBUG] Tavily query: 'Australia retail industry challenges economic conditions'
+  [DEBUG] Tavily returned 3 results, 2473 chars
+[STREAM] Search done, result length: 2473 chars
+[STREAM] Yielding search step: 'Australian consumer spending trends retail 2026'
+  [DEBUG] Tavily query: 'Australian consumer spending trends retail 2026'
+  [DEBUG] Tavily returned 3 results, 1356 chars
+[STREAM] Search done, result length: 1356 chars
+[STREAM] Yielding search step: 'Australian retail cybersecurity supply chain risks'
+  [DEBUG] Tavily query: 'Australian retail cybersecurity supply chain risks'
+  [DEBUG] Tavily returned 3 results, 3573 chars
+[STREAM] Search done, result length: 3573 chars
+[STREAM] Sending 4 tool result(s) back to Claude
+
+[STREAM] Loop 2: sending 3 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail labor shortage wage costs 2026'
+  [DEBUG] Tavily query: 'Australian retail labor shortage wage costs 2026'
+  [DEBUG] Tavily returned 3 results, 2569 chars
+[STREAM] Search done, result length: 2569 chars
+[STREAM] Yielding search step: 'Australian retail cost of living crisis inflation impact'
+  [DEBUG] Tavily query: 'Australian retail cost of living crisis inflation impact'
+  [DEBUG] Tavily returned 3 results, 2167 chars
+[STREAM] Search done, result length: 2167 chars
+[STREAM] Sending 2 tool result(s) back to Claude
+
+[STREAM] Loop 3: sending 5 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail business closures insolvency 2026'
+  [DEBUG] Tavily query: 'Australian retail business closures insolvency 2026'
+  [DEBUG] Tavily returned 3 results, 1623 chars
+[STREAM] Search done, result length: 1623 chars
+[STREAM] Yielding search step: 'Australian retail e-commerce competition Amazon market share'
+  [DEBUG] Tavily query: 'Australian retail e-commerce competition Amazon market share'
+  [DEBUG] Tavily returned 3 results, 2662 chars
+[STREAM] Search done, result length: 2662 chars
+[STREAM] Sending 2 tool result(s) back to Claude
+
+[STREAM] Loop 4: sending 7 messages to Claude
+[STREAM] stop_reason: end_turn
+[STREAM] content blocks: ['text']
+[STREAM] Yielding final report, length: 5227 chars
+```
+
+Run 2:
+```
+[DEBUG] Clients initialised OK
+[STREAM] Starting stream for question: 'What are the top risks in the Australian retail sector?'
+
+[STREAM] Loop 1: sending 1 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily query: 'Australian retail sector risks 2026'
+  [DEBUG] Tavily returned 3 results, 3709 chars
+[STREAM] Search done, result length: 3709 chars
+[STREAM] Yielding search step: 'Australian retail industry challenges economic conditions'
+  [DEBUG] Tavily query: 'Australian retail industry challenges economic conditions'
+  [DEBUG] Tavily returned 3 results, 707 chars
+[STREAM] Search done, result length: 707 chars
+[STREAM] Yielding search step: 'Australian consumer spending trends retail 2025 2026'
+  [DEBUG] Tavily query: 'Australian consumer spending trends retail 2025 2026'
+  [DEBUG] Tavily returned 3 results, 1675 chars
+[STREAM] Search done, result length: 1675 chars
+[STREAM] Yielding search step: 'Australian retail competition online ecommerce disruption'
+  [DEBUG] Tavily query: 'Australian retail competition online ecommerce disruption'
+  [DEBUG] Tavily returned 3 results, 1780 chars
+[STREAM] Search done, result length: 1780 chars
+[STREAM] Sending 4 tool result(s) back to Claude
+
+[STREAM] Loop 2: sending 3 messages to Claude
+[STREAM] stop_reason: tool_use
+[STREAM] content blocks: ['text', 'tool_use', 'tool_use']
+[STREAM] Yielding search step: 'Australian retail crime theft organized retail crime 2026'
+  [DEBUG] Tavily query: 'Australian retail crime theft organized retail crime 2026'
+  [DEBUG] Tavily returned 3 results, 1573 chars
+[STREAM] Search done, result length: 1573 chars
+[STREAM] Yielding search step: 'Australian retail insolvency bankruptcy closures 2026'
+  [DEBUG] Tavily query: 'Australian retail insolvency bankruptcy closures 2026'
+  [DEBUG] Tavily returned 3 results, 1402 chars
+[STREAM] Search done, result length: 1402 chars
+[STREAM] Sending 2 tool result(s) back to Claude
+
+[STREAM] Loop 3: sending 5 messages to Claude
+[STREAM] stop_reason: end_turn
+[STREAM] content blocks: ['text']
+[STREAM] Yielding final report, length: 4018 chars
+```
+
+
+What happened each run:
+
+- The agent ran a loop, where each loop it asks Claude what to do next. Claude decided to search the web, got the results back, then decided whether to search again or write the final report.
+- Run 1 took 4 loops and 8 searches before writing the report (5227 chars). 
+- Run 2 took 3 loops and 6 searches before writing the report (4018 chars). 
+- Same question, different behaviour, because the model is non-deterministic.
+
+
+What each line means:
+
+- stop_reason: tool_use means Claude said "I need to search for more information before I can answer." It is not done yet.
+- stop_reason: end_turn means Claude said "I have enough information, here is my final report." The loop stops here.
+- content blocks: ['text', 'tool_use', 'tool_use', ...] shows what Claude returned in that response. Multiple tool_use blocks means it requested several searches at once, which is efficient.
+- Sending N tool result(s) back to Claude means your code collected all the search results and sent them back in the next loop.
+- Loop N: sending N messages shows the conversation history growing. By Loop 4 in Run 1, you are sending 7 messages because each round trip adds 2 messages (tool results in, Claude response out).
+``
+
+
+The `[STREAM] Yielding final report, length: 4018 chars` line means your code yielded the final text to whoever is reading the stream, and it was 4018 characters long.

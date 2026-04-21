@@ -140,6 +140,76 @@ def run_agent(question: str) -> str:
             # Send the search results back to Claude as a user message
             messages.append({"role": "user", "content": tool_results})
 
+def run_agent_stream(question: str):
+    """
+    Same logic as run_agent() but yields each step as it happens.
+    Used by the Streamlit UI so it can update in real time.
+    Yields dicts with a 'type' key:
+      - {"type": "search", "query": "..."}
+      - {"type": "report", "content": "..."}
+    """
+    # Start the conversation with the user's question, same as run_agent()
+    messages = [{"role": "user", "content": question}]
+    loop_count = 0
+
+    print(f"[STREAM] Starting stream for question: '{question}'")
+
+    while True:
+        loop_count += 1
+        print(f"\n[STREAM] Loop {loop_count}: sending {len(messages)} messages to Claude")
+
+        # Send the full conversation history to Claude
+        response = claude.messages.create(
+            model="claude-sonnet-4-5-20250929",
+            max_tokens=4096,
+            system=SYSTEM_PROMPT,
+            tools=TOOLS,
+            messages=messages
+        )
+
+        print(f"[STREAM] stop_reason: {response.stop_reason}")
+        print(f"[STREAM] content blocks: {[block.type for block in response.content]}")
+
+        # Add Claude's reply to the history so it remembers what it said
+        messages.append({"role": "assistant", "content": response.content})
+
+        # Claude is done, no more searches needed
+        if response.stop_reason == "end_turn":
+            for block in response.content:
+                if hasattr(block, "text"):
+                    print(f"[STREAM] Yielding final report, length: {len(block.text)} chars")
+                    # Yield the report to the Streamlit UI, then stop the generator
+                    yield {"type": "report", "content": block.text}
+            return  # Exit the generator, loop ends here
+
+        # Claude wants to run searches
+        if response.stop_reason == "tool_use":
+            tool_results = []
+
+            for block in response.content:
+                if block.type == "tool_use":
+                    query = block.input["query"]
+                    print(f"[STREAM] Yielding search step: '{query}'")
+
+                    # Yield the search query to the Streamlit UI before running it
+                    # This is what makes the left panel update in real time
+                    yield {"type": "search", "query": query}
+
+                    # Now actually run the search
+                    result = run_search(query)
+                    print(f"[STREAM] Search done, result length: {len(result)} chars")
+
+                    # Package the result so Claude knows which tool call it belongs to
+                    tool_results.append({
+                        "type": "tool_result",
+                        "tool_use_id": block.id,
+                        "content": result
+                    })
+
+            print(f"[STREAM] Sending {len(tool_results)} tool result(s) back to Claude")
+
+            # Send all search results back to Claude and loop again
+            messages.append({"role": "user", "content": tool_results})
 
 # --- Entry point ---
 if __name__ == "__main__":
@@ -148,7 +218,7 @@ if __name__ == "__main__":
     print(f"Question: {question}\n")
     print("Running agent...\n")
 
-    report = run_agent(question)
+    report = run_agent(question)     # only call run_agent() here as it's for testing directly from the terminal. run_agent_stream() is only called by app.py.
 
     print("\n=== FINAL REPORT ===\n")
     print(report)
