@@ -155,6 +155,7 @@ def run_agent_stream(question: str):
     # Start the conversation with the user's question, same as run_agent()
     messages = [{"role": "user", "content": question}]
     loop_count = 0
+    yield {"type": "breakdown", "text": "Breaking question into sub-tasks..."}
 
     print(f"[STREAM] Starting stream for question: '{question}'")
 
@@ -197,10 +198,11 @@ def run_agent_stream(question: str):
 
                     # Yield the search query to the Streamlit UI before running it
                     # This is what makes the left panel update in real time
-                    yield {"type": "search", "query": query}
-
-                    # Now actually run the search
+                    yield {"type": "search", "query": query, "status": "running"}
                     result = run_search(query)
+                    result_count = len(result.split("Source:")) - 1
+                    yield {"type": "search_done", "query": query, "result_count": result_count}
+
                     print(f"[STREAM] Search done, result length: {len(result)} chars")
 
                     # Package the result so Claude knows which tool call it belongs to
