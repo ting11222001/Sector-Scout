@@ -30,13 +30,17 @@ When you have enough information, write the final report in this format:
 ## Summary
 One paragraph overview.
 
+## Key Risks
+For each risk, write it as:
+**[Risk title]** `High` / `Medium` / `Low`
+One sentence explanation.
+
+## Sources
+List each source URL you used, one per line, as a markdown link.
+
 ## Key Findings
 - Finding 1
 - Finding 2
-
-## Risks or Considerations
-- Risk 1
-- Risk 2
 """
 
 # --- Tool definition ---
@@ -160,7 +164,7 @@ def run_agent_stream(question: str):
 
         # Send the full conversation history to Claude
         response = claude.messages.create(
-            model="claude-sonnet-4-5-20250929",
+            model="claude-sonnet-4-6",
             max_tokens=4096,
             system=SYSTEM_PROMPT,
             tools=TOOLS,

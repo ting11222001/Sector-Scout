@@ -6,7 +6,7 @@ st.title("Sector Scout")
 
 question = st.text_input(
     "Enter your research question:",
-    value="What are the top risks in the Australian retail sector?"
+    value="What are the top compliance risks for Australian financial services firms in 2026?"
 )
 
 if st.button("Run Research"):
